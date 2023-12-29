@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCount } from "./cartSlice";
 import { Link } from "react-router-dom";
@@ -32,7 +32,6 @@ const products = [
 ];
 
 export default function Cart() {
-  const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
