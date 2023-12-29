@@ -12,6 +12,7 @@ import {
 import CartPage from "./features/pages/CartPage";
 import CheckoutPage from "./features/pages/CheckoutPage";
 import ProductDetailPage from "./features/pages/ProductDetailPage";
+import Slider from "./features/pages/slider";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/product-detail",
     element: <ProductDetailPage />,
+  },
+  {
+    path: "/slider",
+    element: <Slider />,
   },
 ]);
 
