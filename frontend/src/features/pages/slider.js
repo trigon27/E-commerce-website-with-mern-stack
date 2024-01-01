@@ -1,5 +1,5 @@
 import React from "react";
-import cover from "../Assets/cover.png";
+import cover from "../../Assets/cover.png";
 import { Link } from "react-router-dom";
 
 const Slider = () => {
