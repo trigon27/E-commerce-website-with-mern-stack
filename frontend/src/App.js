@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Profiler } from "react";
 import "./App.css";
 import Home from "./features/pages/Home";
 import LoginPage from "./features/pages/LoginPage";
@@ -18,6 +18,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "./features/auth/AuthSlice";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
+import PageNotFound from "./features/pages/404";
+import OrderSuccessPage from "./features/pages/OrderSuccessPage";
+import Order from "./features/order/Order";
+import UserOrders from "./features/user/components/UserOrder";
+import UserOrdersPage from "./features/pages/UserOrderPage";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +67,27 @@ const router = createBrowserRouter([
         <ProductDetailPage />{" "}
       </Protected>
     ),
+  },
+  {
+    path: "/order-success/:id",
+    element: (
+      <Protected>
+        <OrderSuccessPage />{" "}
+      </Protected>
+    ),
+  },
+  {
+    path: "/orders",
+    element: (
+      <Protected>
+        <UserOrdersPage />{" "}
+      </Protected>
+    ),
+  },
+
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 
