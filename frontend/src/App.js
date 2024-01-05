@@ -1,4 +1,4 @@
-import React, { Profiler } from "react";
+import React from "react";
 import "./App.css";
 import Home from "./features/pages/Home";
 import LoginPage from "./features/pages/LoginPage";
@@ -12,7 +12,7 @@ import {
 import CartPage from "./features/pages/CartPage";
 import CheckoutPage from "./features/pages/CheckoutPage";
 import ProductDetailPage from "./features/pages/ProductDetailPage";
-import Slider from "./features/pages/slider";
+
 import Protected from "./features/auth/components/Protected";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,9 +20,11 @@ import { selectLoggedInUser } from "./features/auth/AuthSlice";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
 import PageNotFound from "./features/pages/404";
 import OrderSuccessPage from "./features/pages/OrderSuccessPage";
-import Order from "./features/order/Order";
-import UserOrders from "./features/user/components/UserOrder";
 import UserOrdersPage from "./features/pages/UserOrderPage";
+import UserProfilePage from "./features/pages/UserProfilePage";
+import { fetchLoggedInUserAsync } from "./features/user/userSlice";
+import Logout from "./features/auth/components/Logout";
+import ForgotPasswordPage from "./features/pages/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +86,26 @@ const router = createBrowserRouter([
       </Protected>
     ),
   },
+  {
+    path: "/profile",
+    element: (
+      <Protected>
+        <UserProfilePage />{" "}
+      </Protected>
+    ),
+  },
+  {
+    path: "/logout",
+    element: (
+      <Protected>
+        <Logout />{" "}
+      </Protected>
+    ),
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage />,
+  },
 
   {
     path: "*",
@@ -97,6 +119,7 @@ function App() {
   useEffect(() => {
     if (user) {
       dispatch(fetchItemsByUserIdAsync(user.id));
+      dispatch(fetchLoggedInUserAsync(user.id));
     }
   }, [dispatch, user]);
   return (
