@@ -28,6 +28,9 @@ export default function UserOrders() {
                 <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
                   Order Status : {order.status}
                 </h3>
+                <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
+                  Order Status : {order.status}
+                </h3>
                 <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
                     {order.items.map((item) => (

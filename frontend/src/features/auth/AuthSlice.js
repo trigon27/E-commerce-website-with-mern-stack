@@ -39,7 +39,7 @@ export const signOutAsync = createAsyncThunk("user/sign", async (loginInfo) => {
   // The value we return becomes the `fulfilled` action payload
   return response.data;
 });
-export const counterSlice = createSlice({
+export const AuthSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -87,6 +87,6 @@ export const counterSlice = createSlice({
 export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectError = (state) => state.auth.error;
 
-export const { increment } = counterSlice.actions;
+export const { increment } = AuthSlice.actions;
 
-export default counterSlice.reducer;
+export default AuthSlice.reducer;
