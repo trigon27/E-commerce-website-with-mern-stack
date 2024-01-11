@@ -67,10 +67,10 @@ const AdminOrders = () => {
   }, [dispatch, page, sort]);
   return (
     <div className="overflow-x-auto">
-      <div className="bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-        <div className="w-full">
+      <div className="bg-gray-100 font-sans overflow-hidden">
+        <div className="w-full overflow-auto">
           <div className="bg-white shadow-md rounded my-6">
-            <table className="min-w-max w-full table-auto">
+            <table className="min-w-max w-full table-auto bg-white">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th

@@ -7,11 +7,11 @@ const Slider = () => {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-_AEE7D1 rounded-md mb-8">
       <div className="flex flex-col-reverse sm:flex-row">
         {/* Div with Image */}
-        <div className="w-full sm:w-3/8 order-2 sm:order-1">
+        <div className="w-full sm:w-3/8 order-2 sm:order-1 flex items-center justify-center">
           <img
             src={cover}
             alt="Example Image"
-            className="w-full h-auto rounded-md sm:mt-0 mt-5"
+            className="w-full h-auto rounded-md"
           />
         </div>
 
