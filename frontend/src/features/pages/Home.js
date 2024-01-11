@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import ProductList from "../ProductList/components/ProductList";
 import Slider from "./slider";
+import Footer from "../common/Footer";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
         <Slider></Slider>
         <ProductList></ProductList>
       </Navbar>
+      <Footer></Footer>
     </div>
   );
 };

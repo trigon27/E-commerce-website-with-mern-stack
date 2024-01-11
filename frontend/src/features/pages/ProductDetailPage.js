@@ -1,6 +1,7 @@
 import React from "react";
 import ProductDetail from "../ProductList/components/ProductDetail";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../common/Footer";
 
 const ProductDetailPage = () => {
   return (
@@ -8,6 +9,7 @@ const ProductDetailPage = () => {
       <Navbar>
         <ProductDetail />
       </Navbar>
+      <Footer></Footer>
     </div>
   );
 };

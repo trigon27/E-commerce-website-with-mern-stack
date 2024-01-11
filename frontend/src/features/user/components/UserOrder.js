@@ -5,11 +5,15 @@ import {
   selectUserInfo,
   selectUserOrders,
 } from "../userSlice";
+import { ThreeDots } from "react-loader-spinner";
+import { selectOrdersStatus } from "../../order/orderSlice";
+import { selectProductListStatus } from "../../ProductList/productSlice";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
   const user = useSelector(selectUserInfo);
   const orders = useSelector(selectUserOrders);
+  const status = useSelector(selectProductListStatus);
 
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync(user.id));
@@ -21,6 +25,28 @@ export default function UserOrders() {
         <div>
           <div>
             <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
+              {status === "loading" ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    height: "100vh",
+                  }}
+                >
+                  <ThreeDots
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#cdb3de"
+                    radius="9"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                </div>
+              ) : null}
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
                   Order # {order.id}
@@ -28,9 +54,7 @@ export default function UserOrders() {
                 <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
                   Order Status : {order.status}
                 </h3>
-                <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
-                  Order Status : {order.status}
-                </h3>
+
                 <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
                     {order.items.map((item) => (

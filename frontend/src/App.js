@@ -30,6 +30,9 @@ import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 import AdminProductDetailPage from "./features/pages/AdminProductDetailPage";
 import AdminProductFormPage from "./features/pages/AdminProductFormPage";
 import AdminOrderPage from "./features/pages/AdminOrderPage";
+import { render } from "react-dom";
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 const router = createBrowserRouter([
   {
@@ -159,6 +162,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const options = {
+    timeout: 5000,
+    position: positions.BOTTOM_CENTER,
+  };
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   useEffect(() => {
@@ -171,7 +178,9 @@ function App() {
     <div>
       {/* <Home /> */}
       {/* <LoginPage /> */}
-      <RouterProvider router={router} />
+      <Provider template={AlertTemplate} {...options}>
+        <RouterProvider router={router} />
+      </Provider>
     </div>
   );
 }
