@@ -5,6 +5,10 @@ const { createProduct } = require("./controller/Product");
 const productsRouter = require("./routes/Products");
 const brandsRouter = require("./routes/Brand");
 const categoryRouter = require("./routes/Categories");
+const UserRouter = require("./routes/User");
+const AuthRouter = require("./routes/Auth");
+const CartRouter = require("./routes/Cart");
+const OrderRouter = require("./routes/Order");
 const cors = require("cors");
 //middleware
 server.use(express.json());
@@ -20,6 +24,10 @@ server.get("/", (req, res) => {
 server.use("/products", productsRouter.router);
 server.use("/brands", brandsRouter.router);
 server.use("/categories", categoryRouter.router);
+server.use("/users", UserRouter.router);
+server.use("/auth", AuthRouter.router);
+server.use("/Cart", CartRouter.router);
+server.use("/orders", OrderRouter.router);
 //database connection
 const connectToMongoDB = async () => {
   try {
