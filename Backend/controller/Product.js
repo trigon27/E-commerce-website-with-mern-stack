@@ -1,4 +1,5 @@
 const { Product } = require("../model/Product");
+
 exports.createProduct = async (req, res) => {
   // this product we have to get from API body
   const product = new Product(req.body);
@@ -11,8 +12,12 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.fetchAllProducts = async (req, res) => {
-  let query = Product.find({});
-  let totalProductsQuery = Product.find({});
+  // filter = {"category":["smartphone","laptops"]}
+  // sort = {_sort:"price",_order="desc"}
+  // pagination = {_page:1,_limit=10}
+  // TODO : we have to try with multiple category and brands after change in front-end
+  let query = Product.find({ deleted: { $ne: true } });
+  let totalProductsQuery = Product.find({ deleted: { $ne: true } });
 
   if (req.query.category) {
     query = query.find({ category: req.query.category });
@@ -24,13 +29,13 @@ exports.fetchAllProducts = async (req, res) => {
     query = query.find({ brand: req.query.brand });
     totalProductsQuery = totalProductsQuery.find({ brand: req.query.brand });
   }
-
+  //TODO : How to get sort on discounted Price not on Actual price
   if (req.query._sort && req.query._order) {
     query = query.sort({ [req.query._sort]: req.query._order });
   }
 
   const totalDocs = await totalProductsQuery.count().exec();
-  // console.log({ totalDocs });
+  console.log({ totalDocs });
 
   if (req.query._page && req.query._limit) {
     const pageSize = req.query._limit;
