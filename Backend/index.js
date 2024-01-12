@@ -3,13 +3,23 @@ const server = express();
 const mongoose = require("mongoose");
 const { createProduct } = require("./controller/Product");
 const productsRouter = require("./routes/Products");
+const brandsRouter = require("./routes/Brand");
+const categoryRouter = require("./routes/Categories");
+const cors = require("cors");
 //middleware
 server.use(express.json());
+server.use(
+  cors({
+    exposedHeaders: ["X-Total-Count"],
+  })
+);
 server.get("/", (req, res) => {
   res.json({ Status: "success" });
 });
 
 server.use("/products", productsRouter.router);
+server.use("/brands", brandsRouter.router);
+server.use("/categories", categoryRouter.router);
 //database connection
 const connectToMongoDB = async () => {
   try {
