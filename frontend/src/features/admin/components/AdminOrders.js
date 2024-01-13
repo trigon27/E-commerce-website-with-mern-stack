@@ -124,16 +124,16 @@ const AdminOrders = () => {
                     </td>
                     <td className="py-3 px-6 text-left">
                       {order.items.map((item) => (
-                        <div className="flex items-center">
+                        <div className="flex items-center p-3">
                           <div className="mr-2">
                             <img
                               className="w-6 h-6 rounded-full"
-                              src={item.thumbnail}
+                              src={item.product.thumbnail}
                             />
                           </div>
                           <span>
-                            {item.title} - #{item.quantity} - $
-                            {discountedPrice(item)}
+                            {item.product.title} - #{item.quantity} - $
+                            {discountedPrice(item.product)}
                           </span>
                         </div>
                       ))}
