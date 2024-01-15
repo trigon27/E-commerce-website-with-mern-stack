@@ -7,7 +7,7 @@ import {
   selectLoggedInUser,
 } from "../AuthSlice";
 import { Link, Navigate } from "react-router-dom";
-import { checkUserAsync } from "../AuthSlice";
+import { loginUserAsync } from "../AuthSlice";
 import logo from "../../../Assets/logo.png";
 import { useForm } from "react-hook-form";
 
@@ -39,7 +39,7 @@ export default function Login() {
             noValidate
             onSubmit={handleSubmit((data) => {
               dispatch(
-                checkUserAsync({ email: data.email, password: data.password })
+                loginUserAsync({ email: data.email, password: data.password })
               );
             })}
             className="space-y-6"
