@@ -12,22 +12,23 @@ const OrderRouter = require("./routes/Order");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
+const cookiParser = require("cookie-parser");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 
 const { User } = require("./model/User");
-const { isAuth, sanitizeUser } = require("./services/common");
+const { isAuth, sanitizeUser, cookieExtractor } = require("./services/common");
 const LocalStrategy = require("passport-local").Strategy;
 
 const SECRET_KEY = "SECRET_KEY";
 // JWT options
 const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = SECRET_KEY; // TODO: should not be in code;
 
 // Middleware
+server.use(express.static("build"));
 server.use(
   session({
     secret: "keyboard cat",
@@ -35,6 +36,7 @@ server.use(
     saveUninitialized: false,
   })
 );
+server.use(cookiParser());
 
 // Initialize Passport
 server.use(passport.initialize());
@@ -47,10 +49,6 @@ server.use(
 );
 
 server.use(express.json());
-
-server.get("/", (req, res) => {
-  res.json({ Status: "success" });
-});
 
 server.use("/products", isAuth(), productsRouter.router);
 server.use("/brands", isAuth(), brandsRouter.router);
@@ -92,7 +90,7 @@ passport.use(
             return done(null, false, { message: "invalid credentials" });
           }
           const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
-          done(null, token);
+          done(null, { token });
         }
       );
     } catch (err) {
@@ -106,7 +104,7 @@ passport.use(
   new JwtStrategy(opts, async function (jwt_payload, done) {
     console.log({ jwt_payload });
     try {
-      const user = await User.findOne({ id: jwt_payload.sub });
+      const user = await User.findById(jwt_payload.id);
       if (user) {
         return done(null, sanitizeUser(user)); // this calls serializer
       } else {

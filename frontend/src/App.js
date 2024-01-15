@@ -33,6 +33,10 @@ import AdminOrderPage from "./features/pages/AdminOrderPage";
 import { render } from "react-dom";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_LEFT,
+};
 
 const router = createBrowserRouter([
   {
@@ -163,16 +167,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const options = {
-    timeout: 5000,
-    position: positions.BOTTOM_CENTER,
-  };
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   useEffect(() => {
     if (user) {
-      dispatch(fetchItemsByUserIdAsync(user.id));
-      dispatch(fetchLoggedInUserAsync(user.id));
+      dispatch(fetchItemsByUserIdAsync());
+      dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
   return (
