@@ -102,7 +102,7 @@ passport.use(
 passport.use(
   "jwt",
   new JwtStrategy(opts, async function (jwt_payload, done) {
-    console.log({ jwt_payload });
+    // console.log({ jwt_payload });
     try {
       const user = await User.findById(jwt_payload.id);
       if (user) {
@@ -126,6 +126,81 @@ passport.deserializeUser(function (user, cb) {
     return cb(null, user);
   });
 });
+
+// Payments
+
+// This is your test secret API key.
+const stripe = require("stripe")(
+  "sk_test_51OYoRlSI0jNJ4ZCOZLKbvUjQc4YlJRjRnfkkX9EjAYYBahM9VhIF9IZP33LLhIrmXQIYi0G0NpLAk3SmlfsiMm2W00OXqb5u0H"
+);
+
+server.post("/create-payment-intent", async (req, res) => {
+  try {
+    const { totalAmount } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: totalAmount * 100, // for decimal compensation
+      currency: "inr",
+      description: "Payment for your order",
+
+      shipping: {
+        name: "John Doe",
+        address: {
+          line1: "456 Shipping St",
+          postal_code: "67890",
+          city: "Shipping City",
+          state: "CA",
+          country: "US",
+        },
+      },
+    });
+
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.error("Error creating payment intent:", error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// // Webhook;
+
+// // TODO: we will capture actual order after deploying out server live on public URL
+
+// const endpointSecret =
+//   "whsec_0e1456a83b60b01b3133d4dbe06afa98f384c2837645c364ee0d5382f6fa3ca2";
+
+// server.post(
+//   "/webhook",
+//   express.raw({ type: "application/json" }),
+//   (request, response) => {
+//     const sig = request.headers["stripe-signature"];
+
+//     let event;
+
+//     try {
+//       event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+//     } catch (err) {
+//       response.status(400).send(`Webhook Error: ${err.message}`);
+//       return;
+//     }
+
+//     // Handle the event
+//     switch (event.type) {
+//       case "payment_intent.succeeded":
+//         const paymentIntentSucceeded = event.data.object;
+//         console.log({ paymentIntentSucceeded });
+//         // Then define and call a function to handle the event payment_intent.succeeded
+//         break;
+//       // ... handle other event types
+//       default:
+//         console.log(`Unhandled event type ${event.type}`);
+//     }
+
+//     // Return a 200 response to acknowledge receipt of the event
+//     response.send();
+//   }
+// );
 
 // Database connection
 const connectToMongoDB = async () => {
