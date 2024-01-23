@@ -14,7 +14,7 @@ const OrderRouter = require("./routes/Order");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const JwtStrategy = require("passport-jwt").Strategy;
-const cookiParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
@@ -75,7 +75,7 @@ server.use(
     saveUninitialized: false,
   })
 );
-server.use(cookiParser());
+server.use(cookieParser());
 
 // Initialize Passport
 server.use(passport.initialize());
