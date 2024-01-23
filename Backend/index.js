@@ -18,7 +18,7 @@ const cookiParser = require("cookie-parser");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
-
+const path = require("path");
 const { User } = require("./model/User");
 const { isAuth, sanitizeUser, cookieExtractor } = require("./services/common");
 const LocalStrategy = require("passport-local").Strategy;
@@ -67,7 +67,7 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY; // TODO: should not be in code;
 
 // Middleware
-server.use(express.static("build"));
+server.use(express.static(path.resolve(__dirname, "build")));
 server.use(
   session({
     secret: process.env.SESSION_KEY,
