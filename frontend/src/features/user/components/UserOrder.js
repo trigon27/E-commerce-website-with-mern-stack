@@ -6,7 +6,7 @@ import {
   selectUserOrders,
 } from "../userSlice";
 import { discountedPrice } from "../../../app/constants";
-import { Grid } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
@@ -26,9 +26,9 @@ export default function UserOrders() {
             <div>
               <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                  <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
+                  <h2 className="text-1xl my-5 font-bold tracking-tight text-gray-900  ">
                     Order # {order.id}
-                  </h1>
+                  </h2>
                   <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
                     Order Status : {order.status}
                   </h3>
@@ -97,7 +97,7 @@ export default function UserOrders() {
                         <p className="text-sm font-semibold leading-6 text-gray-900">
                           {order.selectedAddress.name}
                         </p>
-                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                        <p className="mt-1 truncate text-xs leading-5 text-gray-500 w-20">
                           {order.selectedAddress.street}
                         </p>
                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">
@@ -120,7 +120,7 @@ export default function UserOrders() {
           </div>
         ))}
       {status === "loading" ? (
-        <Grid
+        <ThreeDots
           height="80"
           width="80"
           color="rgb(79, 70, 229) "

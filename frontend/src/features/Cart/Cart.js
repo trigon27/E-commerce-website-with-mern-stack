@@ -10,11 +10,13 @@ import {
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { discountedPrice } from "../../app/constants";
-import { Grid } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 import Modal from "../common/Modal";
+import { useAlert } from "react-alert";
 
 export default function Cart() {
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   const items = useSelector(selectItems);
   const status = useSelector(selectCartStatus);
@@ -32,15 +34,17 @@ export default function Cart() {
   };
 
   const handleRemove = (e, id) => {
+    alert.error("Item Remove ");
     dispatch(deleteItemFromCartAsync(id));
   };
 
   return (
     <>
       {!items.length && cartLoaded && (
-        <Navigate to="/" replace={true}></Navigate>
+        <>
+          <Navigate to="/" replace={true} />
+        </>
       )}
-
       <div>
         <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -49,7 +53,7 @@ export default function Cart() {
             </h1>
             <div className="flow-root">
               {status === "loading" ? (
-                <Grid
+                <ThreeDots
                   height="80"
                   width="80"
                   color="rgb(79, 70, 229) "

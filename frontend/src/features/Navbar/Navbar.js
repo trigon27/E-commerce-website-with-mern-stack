@@ -14,7 +14,7 @@ import profile from "../../Assets/profile.png";
 import { selectUserInfo } from "../user/userSlice";
 const navigation = [
   { name: "Products", link: "/", user: true },
-  { name: "Team", link: "#", user: true },
+
   { name: "Admin", link: "/admin", admin: true },
   { name: "Orders", link: "/admin/order", admin: true },
 ];

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -11,24 +13,24 @@ function Footer() {
             <h4 className="text-xl font-semibold mb-3 ">Explore</h4>
             <ul className="list-none p-0 m-0">
               <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
+                <Link to={"/"} className="hover:text-gray-400">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
-                  Products
-                </a>
+                <Link to={"/cart"} className="hover:text-gray-400">
+                  Cart
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
-                  About us
-                </a>
+                <Link to={"/orders"} className="hover:text-gray-400">
+                  My Orders
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
-                  Contact us
-                </a>
+                <Link to={"/profile"} className="hover:text-gray-400">
+                  My Profile
+                </Link>
               </li>
             </ul>
           </div>
@@ -61,24 +63,24 @@ function Footer() {
             <h4 className="text-xl font-semibold mb-3">Connect</h4>
             <ul className="list-none p-0 m-0">
               <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
-                  Facebook
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
-                  Twitter
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
-                  Instagram
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="hover:text-gray-400">
+                <Link
+                  to={"https://www.linkedin.com/in/ashraf-shaikh-/"}
+                  target="_blank"
+                  className="hover:text-gray-400"
+                  className="hover:text-gray-400"
+                >
                   LinkedIn
-                </a>
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link
+                  to={"https://www.instagram.com/ashraf__shaikh__27/"}
+                  target="_blank"
+                  className="hover:text-gray-400"
+                  className="hover:text-gray-400"
+                >
+                  Instagram
+                </Link>
               </li>
             </ul>
           </div>
@@ -86,7 +88,7 @@ function Footer() {
       </div>
       <div className="text-center mt-8">
         <p className="text-sm text-gray-400">
-          © 2023 Your Company. All rights reserved.
+          © 2024 Prime Picks. All rights reserved.
         </p>
       </div>
     </footer>

@@ -7,12 +7,12 @@ import {
   selectProductById,
   selectProductListStatus,
 } from "../productSlice";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { addToCartAsync, selectItems } from "../../cart/cartSlice";
-import { selectLoggedInUser } from "../../auth/AuthSlice";
+
 import { discountedPrice } from "../../../app/constants";
 import { useAlert } from "react-alert";
-import { Grid } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 // TODO: In server data we will add colors, sizes , highlights. to each product
 
@@ -66,7 +66,7 @@ export default function ProductDetail() {
       };
       dispatch(addToCartAsync(newItem));
       // TODO: it will be based on server response of backend
-      alert.error("Item added to Cart");
+      alert.success("Item added to Cart");
     } else {
       alert.error("Item Already added");
     }
@@ -79,7 +79,7 @@ export default function ProductDetail() {
   return (
     <div className="bg-white">
       {status === "loading" ? (
-        <Grid
+        <ThreeDots
           height="80"
           width="80"
           color="rgb(79, 70, 229) "
@@ -250,12 +250,12 @@ export default function ProductDetail() {
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                    <a
-                      href="#"
+                    <Link
+                      to={"#"}
                       className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Size guide
-                    </a>
+                    </Link>
                   </div>
 
                   <RadioGroup
