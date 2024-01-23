@@ -23,7 +23,7 @@ function Footer() {
                 </Link>
               </li>
               <li className="mb-2">
-                <Link to={"/orders"} className="hover:text-gray-400">
+                <Link to={"/my-orders"} className="hover:text-gray-400">
                   My Orders
                 </Link>
               </li>

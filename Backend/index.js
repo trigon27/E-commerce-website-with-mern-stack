@@ -97,6 +97,10 @@ server.use("/auth", AuthRouter.router);
 server.use("/Cart", isAuth(), CartRouter.router);
 server.use("/orders", isAuth(), OrderRouter.router);
 
+server.get("*", (req, res) =>
+  res.sendFile(path.resolve("build", "index.html"))
+);
+
 // Passport strategy
 passport.use(
   "local",
@@ -176,7 +180,7 @@ const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
 
 server.post("/create-payment-intent", async (req, res) => {
   try {
-    const { totalAmount } = req.body;
+    const { totalAmount, orderId } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalAmount * 100, // for decimal compensation
       currency: "inr",
@@ -191,6 +195,9 @@ server.post("/create-payment-intent", async (req, res) => {
           state: "CA",
           country: "US",
         },
+      },
+      metadata: {
+        orderId,
       },
     });
 
