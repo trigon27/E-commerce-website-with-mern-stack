@@ -186,7 +186,7 @@ function App() {
   const userChecked = useSelector(selectUserChecked);
   useEffect(() => {
     dispatch(checkAuthAsync());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     if (user) {
       dispatch(fetchItemsByUserIdAsync());

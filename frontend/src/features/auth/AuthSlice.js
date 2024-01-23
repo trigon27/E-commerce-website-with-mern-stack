@@ -3,7 +3,7 @@ import { loginUser, createUser, signOut, checkAuth } from "./AuthAPI";
 import { updateUser } from "../user/userAPI";
 
 const initialState = {
-  selectLoggedInuserToken: null, // this should only contain user identity => 'id'/'role'
+  selectLoggedInUserToken: null, // this should only contain user identity => 'id'/'role'
   status: "idle",
   error: null,
   userChecked: false,
@@ -58,14 +58,14 @@ export const authSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.selectLoggedInuserToken = action.payload;
+        state.selectLoggedInUserToken = action.payload;
       })
       .addCase(loginUserAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.selectLoggedInuserToken = action.payload;
+        state.selectLoggedInUserToken = action.payload;
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.status = "idle";
@@ -76,14 +76,14 @@ export const authSlice = createSlice({
       })
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.selectLoggedInuserToken = null;
+        state.selectLoggedInUserToken = null;
       })
       .addCase(checkAuthAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(checkAuthAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.selectLoggedInuserToken = action.payload;
+        state.selectLoggedInUserToken = action.payload;
         state.userChecked = true;
       })
       .addCase(checkAuthAsync.rejected, (state, action) => {
@@ -93,7 +93,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectLoggedInUser = (state) => state.auth.selectLoggedInuserToken;
+export const selectLoggedInUser = (state) => state.auth.selectLoggedInUserToken;
 export const selectError = (state) => state.auth.error;
 export const selectUserChecked = (state) => state.auth.userChecked;
 

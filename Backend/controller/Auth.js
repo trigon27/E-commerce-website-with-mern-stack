@@ -32,7 +32,7 @@ exports.createUser = async (req, res) => {
                 httpOnly: true,
               })
               .status(201)
-              .json({ id: doc.id, role: doc.role, token });
+              .json({ id: doc.id, role: doc.role });
           }
         });
       }
@@ -43,14 +43,27 @@ exports.createUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-  const user = req.user;
-  res
-    .cookie("jwt", user.token, {
-      expires: new Date(Date.now() + 3600000),
-      httpOnly: true,
-    })
-    .status(201)
-    .json({ id: user.id, role: user.role });
+  try {
+    const user = req.user;
+
+    if (!user) {
+      // User not found, handle accordingly
+      return res.sendStatus(401);
+    }
+
+    const token = jwt.sign(sanitizeUser(user), process.env.JWT_SECRET_KEY);
+
+    res
+      .cookie("jwt", token, {
+        expires: new Date(Date.now() + 3600000),
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ id: user.id, role: user.role });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 exports.checkAuth = async (req, res) => {
